@@ -304,4 +304,825 @@
 
 <script src="script.js"></script>
 </body>
+  /* ============================================================
+   个人主页样式 · 浅色清爽简洁风格
+   想换主题色，只改下面 :root 里的 --accent 两个值即可。
+   ============================================================ */
+
+:root {
+  /* 颜色 */
+  --bg:            #ffffff;
+  --bg-subtle:     #f7f8fa;
+  --text:          #16181d;
+  --text-soft:     #3f444d;
+  --text-muted:    #767d8a;
+  --border:        #e8eaee;
+  --border-strong: #d6dae1;
+  --accent:        #2f5bd7;
+  --accent-soft:   #eef2fd;
+
+  /* 排版 */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+               "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", Roboto,
+               Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* 布局 */
+  --measure: 760px;
+  --gutter:  24px;
+  --radius:  10px;
+}
+
+[data-theme="dark"] {
+  --bg:            #101216;
+  --bg-subtle:     #171a20;
+  --text:          #e9ebef;
+  --text-soft:     #c3c8d1;
+  --text-muted:    #8a919e;
+  --border:        #262b33;
+  --border-strong: #343b45;
+  --accent:        #7ea2ff;
+  --accent-soft:   #1b2439;
+}
+
+/* ---------- 基础 ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+h1, h2, h3 { line-height: 1.35; font-weight: 600; letter-spacing: -.01em; }
+p { margin: 0 0 1em; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+ul, ol, dl, dd { margin: 0; padding: 0; }
+li { list-style: none; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.container {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- 导航 ---------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, .86); /* 不支持 color-mix 时的兜底 */
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-brand {
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: .01em;
+  flex: none;
+}
+.nav-brand:hover { text-decoration: none; color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-links a {
+  display: block;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: color .15s ease, background-color .15s ease;
+}
+.nav-links a:hover {
+  color: var(--text);
+  background: var(--bg-subtle);
+  text-decoration: none;
+}
+.nav-links a.active {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.theme-toggle {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease, background-color .15s ease;
+}
+.theme-toggle:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+  background: var(--bg-subtle);
+}
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* ---------- 首屏 ---------- */
+
+.hero { padding: 76px 0 48px; }
+
+.eyebrow {
+  margin: 0 0 1em;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hero h1 {
+  margin: 0 0 12px;
+  font-size: clamp(32px, 5.5vw, 44px);
+  letter-spacing: -.025em;
+}
+
+.name-en {
+  margin-left: .5em;
+  font-size: .46em;
+  font-weight: 400;
+  letter-spacing: .06em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.hero .role {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.hero .lead {
+  max-width: 60ch;
+  margin: 22px 0 0;
+  color: var(--text-soft);
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.hero-meta li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.hero-meta svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: .75;
+}
+.hero-meta a { color: var(--text-soft); }
+.hero-meta a:hover { color: var(--accent); }
+
+/* ---------- 区块 ---------- */
+
+.section {
+  padding: 46px 0;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 74px;
+}
+
+.section h2 {
+  margin: 0 0 28px;
+  font-size: 22px;
+}
+
+.prose { max-width: 62ch; color: var(--text-soft); }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--text); font-weight: 600; }
+
+/* ---------- 条目（教育 / 项目通用） ---------- */
+
+.item { padding: 22px 0; border-bottom: 1px solid var(--border); }
+.item:first-child { padding-top: 0; }
+.item:last-child  { padding-bottom: 0; border-bottom: none; }
+
+.item-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.item-head h3 {
+  margin: 0;
+  font-size: 16.5px;
+}
+
+.item-dept {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.item-date {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: .01em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.item-sub {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.bullets {
+  margin-top: 12px;
+  display: grid;
+  gap: 7px;
+  max-width: 64ch;
+  color: var(--text-soft);
+  font-size: 15px;
+}
+.bullets li {
+  position: relative;
+  padding-left: 17px;
+}
+.bullets li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: .72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--border-strong);
+}
+
+/* ---------- 项目卡片 ---------- */
+
+.cards {
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px -14px rgba(20, 26, 45, .45);
+}
+
+/* ---------- 标签 ---------- */
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 15px;
+}
+.tags li {
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-subtle);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ---------- 技能表 ---------- */
+
+.skills { display: grid; gap: 0; }
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border);
+}
+.skill-row:first-child { padding-top: 0; }
+.skill-row:last-child  { padding-bottom: 0; border-bottom: none; }
+
+.skill-row dt {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding-top: 4px;
+}
+.skill-row .tags { margin-top: 0; }
+
+/* ---------- 荣誉列表 ---------- */
+
+.awards { display: grid; }
+
+.awards li {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: baseline;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+.awards li:first-child { padding-top: 0; }
+.awards li:last-child  { padding-bottom: 0; border-bottom: none; }
+
+.award-year {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.award-name { color: var(--text-soft); }
+.award-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ---------- 联系方式 ---------- */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.contact-item {
+  display: grid;
+  gap: 3px;
+  padding: 15px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  transition: border-color .18s ease, background-color .18s ease;
+}
+a.contact-item:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  text-decoration: none;
+}
+.contact-item.is-static { cursor: default; }
+
+.contact-label {
+  font-size: 12px;
+  letter-spacing: .04em;
+  color: var(--text-muted);
+}
+.contact-value {
+  font-size: 14.5px;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- 页脚 ---------- */
+
+.footer {
+  margin-top: 40px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-subtle);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding-top: 26px;
+  padding-bottom: 26px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.footer-inner p { margin: 0; }
+.footer-hint { font-family: var(--font-mono); font-size: 12px; opacity: .8; }
+
+/* ---------- 滚动淡入 ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s cubic-bezier(.22,.61,.36,1),
+              transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 620px) {
+  :root { --gutter: 20px; }
+
+  .hero { padding: 52px 0 36px; }
+  .section { padding: 38px 0; }
+
+  .nav-inner { gap: 6px; }
+  .nav-links a { padding: 5px 8px; font-size: 13.5px; }
+
+  .item-head {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .item-date { order: -1; }
+
+  .card { padding: 18px 18px; }
+
+  .skill-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .awards li {
+    grid-template-columns: 48px 1fr;
+    gap: 4px 12px;
+  }
+  .award-note { grid-column: 2; }
+
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- 无动画偏好 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ---------- 打印 / 导出 PDF ---------- */
+
+@media print {
+  :root {
+    --bg: #fff;
+    --bg-subtle: #fff;
+    --text: #000;
+    --text-soft: #222;
+    --text-muted: #555;
+    --border: #ccc;
+    --border-strong: #bbb;
+    --accent: #000;
+    --accent-soft: #fff;
+    --gutter: 0px;
+  }
+
+  @page { margin: 14mm 16mm; }
+
+  body { font-size: 11.5pt; line-height: 1.6; }
+
+  .nav, .footer, .theme-toggle { display: none !important; }
+
+  .hero { padding: 0 0 20px; }
+  .section { padding: 18px 0; border-top: none; break-inside: avoid; }
+
+  .reveal { opacity: 1 !important; transform: none !important; }
+
+  .card, .contact-item {
+    border-color: var(--border);
+    box-shadow: none;
+    break-inside: avoid;
+  }
+  .card:hover { transform: none; box-shadow: none; }
+
+  .tags li { background: #fff; }
+  a { color: #000; text-decoration: none; }
+}
+
+
+script.js
+交互 —— 主题切换、滚动淡入、导航高亮　·　共 112 行
+/* ============================================================
+   交互脚本 —— 主题切换 / 滚动淡入 / 导航高亮 / 年份
+   没有依赖，可整段删除，页面依然可用。
+   ============================================================ */
+
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+
+  /* ---------- 1. 页脚年份 ---------- */
+  var yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  /* ---------- 2. 深色 / 浅色主题 ---------- */
+  var THEME_KEY = 'homepage-theme';
+  var toggle = document.getElementById('themeToggle');
+
+  function isDark() {
+    return root.getAttribute('data-theme') === 'dark';
+  }
+
+  function applyTheme(dark) {
+    if (dark) {
+      root.setAttribute('data-theme', 'dark');
+    } else {
+      root.removeAttribute('data-theme');
+    }
+    if (toggle) {
+      toggle.setAttribute('aria-label', dark ? '切换到浅色模式' : '切换到深色模式');
+      toggle.setAttribute('title', dark ? '切换到浅色模式' : '切换到深色模式');
+    }
+  }
+
+  // 默认浅色；只有用户主动切换过才恢复深色
+  var saved = null;
+  try { saved = localStorage.getItem(THEME_KEY); } catch (e) { /* 隐私模式下忽略 */ }
+  applyTheme(saved === 'dark');
+
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var next = !isDark();
+      applyTheme(next);
+      try { localStorage.setItem(THEME_KEY, next ? 'dark' : 'light'); } catch (e) {}
+    });
+  }
+
+  /* ---------- 3. 滚动淡入 ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -6% 0px' });
+
+    Array.prototype.forEach.call(revealEls, function (el) {
+      revealObserver.observe(el);
+    });
+  } else {
+    // 老浏览器直接显示
+    Array.prototype.forEach.call(revealEls, function (el) {
+      el.classList.add('is-visible');
+    });
+  }
+
+  /* ---------- 4. 导航当前区块高亮 ---------- */
+  var navLinks = Array.prototype.slice.call(
+    document.querySelectorAll('.nav-links a[href^="#"]')
+  );
+
+  var sections = navLinks.map(function (link) {
+    return document.getElementById(link.getAttribute('href').slice(1));
+  }).filter(Boolean);
+
+  function updateActiveLink() {
+    if (!sections.length) return;
+
+    var probe = window.scrollY + 130; // 顶端留出导航栏高度
+    var activeId = null;
+
+    sections.forEach(function (section) {
+      if (section.offsetTop <= probe) activeId = section.id;
+    });
+
+    // 已经滚到页面底部时，强制点亮最后一节
+    var atBottom =
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 4;
+    if (atBottom) activeId = sections[sections.length - 1].id;
+
+    navLinks.forEach(function (link) {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
+    });
+  }
+
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      updateActiveLink();
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  updateActiveLink();
+})();
+
+
+README.md
+项目说明与部署步骤　·　共 123 行
+# 个人主页 · 张三
+
+纯静态个人简历主页，零依赖、零构建，推送到 GitHub 后可在 Vercel 一键部署。
+
+## 文件说明
+
+| 文件 | 作用 |
+| --- | --- |
+| `index.html` | 页面内容（文字、结构）—— **改内容只动这个文件** |
+| `style.css` | 样式（颜色、字体、间距、响应式、打印样式） |
+| `script.js` | 交互（主题切换、滚动淡入、导航高亮）—— 删掉页面也能用 |
+
+---
+
+## 一、本地预览
+
+直接双击 `index.html` 即可在浏览器打开。
+
+如果想更接近线上效果，可在本目录启动一个本地服务器：
+
+```bash
+python -m http.server 8000
+```
+
+然后访问 <http://localhost:8000>。
+
+---
+
+## 二、创建 GitHub 仓库并推送
+
+在本目录（`personal-homepage/`）下依次执行：
+
+```bash
+git init
+git add .
+git commit -m "初始化个人主页"
+git branch -M main
+```
+
+然后在 GitHub 上新建一个**空仓库**（不要勾选 Add README / .gitignore），
+把下面的地址换成你自己的：
+
+```bash
+git remote add origin https://github.com/<你的用户名>/<仓库名>.git
+git push -u origin main
+```
+
+> 仓库名建议用 `<你的用户名>.github.io`，这样即使以后不用 Vercel，
+> 也能通过 GitHub Pages 访问。
+
+---
+
+## 三、Vercel 一键部署
+
+1. 打开 <https://vercel.com>，用 **GitHub 账号**登录。
+2. 点击 **Add New… → Project**。
+3. 在列表里找到刚才推送的仓库，点 **Import**。
+4. Vercel 会自动识别为静态站点，配置保持默认即可：
+
+   | 配置项 | 值 |
+   | --- | --- |
+   | Framework Preset | `Other` |
+   | Build Command | 留空 |
+   | Output Directory | 留空（或填 `.`） |
+   | Install Command | 留空 |
+
+5. 点 **Deploy**，约 20 秒后即可拿到形如
+   `https://<项目名>.vercel.app` 的公开地址。
+
+**此后的更新流程**：只要 `git push` 到 `main` 分支，Vercel 会自动重新部署，无需任何手动操作。
+
+### 绑定自己的域名（可选）
+
+Vercel 项目 → **Settings → Domains** → 输入你的域名 → 按提示到域名服务商处
+添加一条 `CNAME` 记录即可，HTTPS 证书自动签发。
+
+---
+
+## 四、需要修改的内容
+
+内容全部为虚构示例，请替换成你自己的。在 `index.html` 里搜索以下关键词：
+
+| 搜索 | 替换为 |
+| --- | --- |
+| `张三` / `Zhang San` | 你的姓名 / 英文名 |
+| `zhangsan@example.com` | 你的邮箱 |
+| `github.com/zhangsan` | 你的 GitHub 主页 |
+| `138-0000-0000` | 你的电话（不想公开就删掉整个 `<li>`） |
+| `华东师范大学` / `苏州大学` | 你的学校 |
+| `上海` | 你所在的城市 |
+
+另外记得同步修改 `<head>` 中的 `<title>`、`<meta name="description">`
+和 `og:title` / `og:description` —— 这几个决定分享到微信、微博时的标题和摘要。
+
+### 换主题色
+
+打开 `style.css`，改开头的两个变量即可，其余样式会自动跟随：
+
+```css
+:root {
+  --accent:      #2f5bd7;  /* 主题色 */
+  --accent-soft: #eef2fd;  /* 主题色的浅色底 */
+}
+```
+
+### 增删区块
+
+每个区块是一段 `<section class="section container reveal" id="...">`。
+直接删除多余的 `<section>` 即可；如果要新增，记得同时：
+
+1. 给新区块一个 `id`；
+2. 在 `<div class="nav-links">` 里加一个对应的 `<a href="#新id">`。
+
+导航高亮和滚动动画会自动适配，不用改 JS。
+
+---
+
+## 五、其他
+
+- **导出 PDF 简历**：浏览器 `Ctrl/Cmd + P` → 目标选「另存为 PDF」。
+  已写好打印样式，会自动隐藏导航栏、去掉背景色，排版适合 A4。
+- **深色模式**：右上角按钮可切换，选择会记在浏览器里。默认是浅色。
+- **响应式**：已适配手机、平板、桌面。
+
+
+.gitignore
+Git 忽略规则　·　共 13 行
+# 操作系统 / 编辑器产生的垃圾文件
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+.vscode/
+
+# Vercel 本地 CLI（如果以后用 `vercel dev`）
+.vercel/
+
+# 依赖（本项目是纯静态站点，正常不会有）
+node_modules/
 </html>
