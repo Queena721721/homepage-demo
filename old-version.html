@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张三 | 前端开发工程师</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>张三</h1>
+            <p class="title">高级前端开发工程师 | AI 应用探索者</p>
+            <div class="contact-links">
+                <a href="mailto:zhangsan@example.com">📧 zhangsan@example.com</a>
+                <a href="https://github.com" target="_blank">💻 GitHub</a>
+                <a href="https://linkedin.com" target="_blank">🔗 LinkedIn</a>
+            </div>
+        </header>
+
+        <section id="about">
+            <h2>关于我</h2>
+            <p>拥有 5 年互联网大厂开发经验，热衷于探索前沿技术（如 WebGL、AI Agent、大模型应用）。目前致力于将 AI 与前端工程化结合，提升开发效率与用户体验。具备优秀的团队协作能力和代码洁癖。</p>
+        </section>
+
+        <section id="skills">
+            <h2>技能标签</h2>
+            <ul class="skill-list">
+                <li>HTML5 / CSS3</li>
+                <li>JavaScript / TypeScript</li>
+                <li>React / Vue3</li>
+                <li>Node.js</li>
+                <li>Tailwind CSS</li>
+                <li>AI Prompt Engineering</li>
+            </ul>
+        </section>
+
+        <section id="experience">
+            <h2>工作经历</h2>
+            <div class="job">
+                <h3>某科技公司 — 高级前端工程师</h3>
+                <p class="date">2022.07 - 至今</p>
+                <ul>
+                    <li>主导公司核心业务后台从 Vue2 到 React 的重构，首屏加载速度提升 40%。</li>
+                    <li>搭建团队组件库，提高 30% 的开发效率。</li>
+                    <li>引入 AI 代码审查工具，降低 20% 的线上 Bug 率。</li>
+                </ul>
+            </div>
+            <div class="job">
+                <h3>某互联网公司 — 前端开发工程师</h3>
+                <p class="date">2020.07 - 2022.06</p>
+                <ul>
+                    <li>负责移动端 H5 页面的开发与性能优化，日活用户达到 50W+。</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>© 2024 张三。Built with ❤️ and AI.</p>
+    </footer>
+</body>
+</html>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #2c3e50;
+}
+
+.title {
+    font-size: 1.1em;
+    color: #7f8c8d;
+    margin-top: 10px;
+}
+
+.contact-links {
+    margin-top: 15px;
+}
+
+.contact-links a {
+    color: #3498db;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+.contact-links a:hover {
+    text-decoration: underline;
+}
+
+section {
+    margin-bottom: 35px;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-left: 4px solid #3498db;
+    padding-left: 10px;
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+}
+
+.skill-list li {
+    background: #e8f4fd;
+    color: #2980b9;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.job {
+    margin-bottom: 20px;
+}
+
+.job h3 {
+    font-size: 1.1em;
+    color: #34495e;
+}
+
+.date {
+    font-size: 0.85em;
+    color: #95a5a6;
+    margin-bottom: 8px;
+}
+
+.job ul {
+    list-style-position: inside;
+    padding-left: 10px;
+    color: #555;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #95a5a6;
+    font-size: 0.85em;
+}
