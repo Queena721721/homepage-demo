@@ -1,0 +1,61 @@
+API key：sk-462b42566c6c4dc0b8a3653511bc0d1c
+
+Powershell代码
+winget install OpenJS.NodeJS.LTS  ##安装node，装完重开
+node -v  ##查看node版本
+npm -v
+
+##显示无法加载文件处理方法
+get-ExecutionPolicy  ##若出现Restricted
+Set-ExecutionPolicy -Scope CurrentUser
+RemoteSigned  ##值，再get-ExecutionPolicy显示RemoteSigned即成功
+
+npm -v
+winget install Git.Git  ##安装git，装完重开
+git --version
+npm install -g @anthropic-ai/claude-code  ##安装Claude
+
+##npm安装太慢换镜像网站
+npm config set registry https://registry.npmmirror.com
+npm install -g @anthropic-ai/claude-code
+claude --version
+npm config set registry https://registry.npmjs.org  ##装好后恢复官方源
+
+##写入用户环境变量，一次永久，红色字需要修改，装完重开
+setx ANTHROPIC_BASE_URL "https://api.deepseek.com/anthropic"
+Setx ANTHROPIC_AUTH_TOKEN "sk-你的DeepSeek密钥"
+setx ANTHROPIC_MODEL "deepseek-v4-flash-vision-exp"
+Setx ANTHROPIC_DEFAULT_OPUS_MODEL "deepseek-V4-flash-vision-exp”
+Setx ANTHROPIC_DEFAULT_SONNET_MODEL "deepseek-v4-flash-vision-exp"
+Setx ANTHROPIC_DEFAULT_HAIKU_MODEL "deepseek-V4-flash"
+setx CLAUDE_CODE_SUBAGENT_MODEL "deepseek-v4-flash"
+
+claude doctor  ##检查版本等
+mkdir "$HOME\Desktop\claude-test"  ##新建文件夹，用cd（Change Directory）命令进入
+cd "$HOME\Desktop\claude-test"
+Claude  ##启动 Claude Code
+不会要求登录Claude.ai一因为有 ANTHROPIC_AUTH_TOKEN + ANTHROPIC_BASE_URL
+首次进目录问 Do you trust the files in this folder?- 自己的目录,Yes
+
+##以后进入只需
+cd D:\Projects\myapp
+Claude
+
+##创建一个 hello.py,让它打印 Hello from claude Code，然后运行它并确认结果。
+Write(hello.py)
+Bash(python hello.py)
+
+settings.json 是什么？
+就是保存你配置的文件（里面有你的 DeepSeek API Key 密钥，也就是你充钱的凭证）。
+
+
+为什么只能放“用户目录”（~/.claude/）？
+用户目录（比如 C:\Users\你的名字\.claude\）是你个人的私人领地，只有你自己能看。
+
+
+为什么绝对不能放“项目目录”（.claude/）？
+假设你在 D:\Projects\myapp 下建了一个 .claude/ 文件夹并把配置放进去。当你以后写代码完成了，想把这个项目上传到 GitHub 或者发给同事时，这个含有你专属 API Key 的配置文件也会一起被传上去。
+
+
+后果：黑客或爬虫会瞬间扫描到你的 Key，用你的账号疯狂调用 API，一夜之间把你充的钱全部耗光。
+
