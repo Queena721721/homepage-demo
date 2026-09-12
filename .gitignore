@@ -1,0 +1,13 @@
+# 操作系统 / 编辑器产生的垃圾文件
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+.vscode/
+
+# Vercel 本地 CLI（如果以后用 `vercel dev`）
+.vercel/
+
+# 依赖（本项目是纯静态站点，正常不会有）
+node_modules/
